@@ -22,9 +22,9 @@ class MODESTMuseum(BaseDataset):
             img_type: self._transform(data_type=img_type)
             for img_type in self.input_types
         }
-        for img_type in self.output_types:  # Outputs will not be normalized
+        for img_type in self.output_types:  # Outputs will not have any augmentation
             self.train_transform[img_type] = self._transform(
-                data_type=img_type, normalize=False
+                data_type=img_type, train=False, normalize=False
             )
         self.train_data = self._download()
         self.classes = self._get_classes()

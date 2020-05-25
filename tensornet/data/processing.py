@@ -10,8 +10,8 @@ class Transformations:
     def __init__(
         self, resize=(0, 0), padding=(0, 0), crop=(0, 0), horizontal_flip_prob=0.0,
         vertical_flip_prob=0.0, gaussian_blur_prob=0.0, rotate_degree=0.0,
-        cutout_prob=0.0, cutout_dim=(8, 8), mean=(0.5, 0.5, 0.5),
-        std=(0.5, 0.5, 0.5), normalize=True, train=True
+        cutout_prob=0.0, cutout_dim=(8, 8), hue_saturation_prob=0.0, contrast_prob=0.0,
+        mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5), normalize=True, train=True
     ):
         """Create data transformation pipeline.
         
@@ -34,6 +34,10 @@ class Transformations:
                 performed. (default: 0)
             cutout_dim (tuple, optional): Dimensions of the cutout box (height, width).
                 (default: (8, 8))
+            hue_saturation_prob (float, optional): Probability of randomly changing hue,
+                saturation and value of the input image. (default: 0)
+            contrast_prob (float, optional): Randomly changing contrast of the input image.
+                (default: 0)
             mean (float or tuple, optional): Dataset mean. (default: 0.5 for each channel)
             std (float or tuple, optional): Dataset standard deviation. (default: 0.5 for each channel)
         """
@@ -67,6 +71,10 @@ class Transformations:
                     p=cutout_prob, max_holes=1, fill_value=fill_value,
                     max_height=cutout_dim[0], max_width=cutout_dim[1]
                 )]
+            if hue_saturation_prob > 0:  # Hue Saturation
+                transforms_list += [A.HueSaturationValue(p=hue_saturation_prob)]
+            if contrast_prob > 0:  # Random Contrast
+                transforms_list += [A.RandomContrast(p=contrast_prob)]
         if normalize:
             # normalize the data with mean and standard deviation to keep values in range [-1, 1]
             # since there are 3 channels for each image,

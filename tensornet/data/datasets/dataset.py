@@ -14,7 +14,7 @@ class BaseDataset:
         num_workers=1, path=None, train_split=0.7, resize=(0, 0), padding=(0, 0),
         crop=(0, 0), horizontal_flip_prob=0.0, vertical_flip_prob=0.0,
         gaussian_blur_prob=0.0, rotate_degree=0.0, cutout_prob=0.0,
-        cutout_dim=(8, 8)
+        cutout_dim=(8, 8), hue_saturation_prob=0.0, contrast_prob=0.0
     ):
         """Initializes the dataset for loading.
 
@@ -50,6 +50,10 @@ class BaseDataset:
                 performed. (default: 0)
             cutout_dim (tuple, optional): Dimensions of the cutout box
                 (height, width). (default: (8, 8))
+            hue_saturation_prob (float, optional): Probability of randomly changing hue,
+                saturation and value of the input image. (default: 0)
+            contrast_prob (float, optional): Randomly changing contrast of the input image.
+                (default: 0)
         """
         
         self.cuda = cuda
@@ -74,6 +78,8 @@ class BaseDataset:
         self.rotate_degree = rotate_degree
         self.cutout_prob = cutout_prob
         self.cutout_dim = cutout_dim
+        self.hue_saturation_prob = hue_saturation_prob
+        self.contrast_prob = contrast_prob
         
         # Get dataset statistics
         self.image_size = self._get_image_size()
@@ -130,6 +136,8 @@ class BaseDataset:
             args['rotate_degree'] = self.rotate_degree
             args['cutout_prob'] = self.cutout_prob
             args['cutout_dim'] = self.cutout_dim
+            args['hue_saturation_prob'] = self.hue_saturation_prob
+            args['contrast_prob'] = self.contrast_prob
 
         return Transformations(**args)
     

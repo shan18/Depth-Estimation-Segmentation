@@ -110,6 +110,7 @@ class LRFinder:
         train_loader,
         iterations,
         mode='iteration',
+        learner=None,
         val_loader=None,
         start_lr=None,
         end_lr=10,
@@ -127,6 +128,7 @@ class LRFinder:
                 to the number of epochs.
             mode (str, optional): After which mode to update the learning rate. Can be
                 either 'iteration' or 'epoch'. (default: 'iteration') 
+            learner (Learner, optional): Learner object for the model. (default: None) 
             val_loader (torch.utils.data.DataLoader, optional): If None, the range test
                 will only use the training metric. When given a data loader, the model is
                 evaluated after each iteration on that dataset and the evaluation metric
@@ -171,11 +173,23 @@ class LRFinder:
         if smooth_f < 0 or smooth_f >= 1:
             raise ValueError('smooth_f is outside the range [0, 1]')
 
+        # Set accuracy metric if needed
+        metrics = None
+        if self.metric == 'accuracy':
+            metrics = ['accuracy']
+
         # Get the learner object
-        self.learner = Learner(
-            self.model, self.optimizer, self.criterion, train_loader,
-            device=self.device, val_loader=val_loader
-        )
+        if not learner is None:
+            self.learner = learner(
+                train_loader, self.optimizer, self.criterion,
+                device=self.device, val_loader=val_loader, metrics=metrics
+            )
+        else:
+            self.learner = Learner(
+                train_loader, self.optimizer, self.criterion,
+                device=self.device, val_loader=val_loader, metrics=metrics
+            )
+        self.learner.set_model(self.model)
 
         train_iterator = InfiniteDataLoader(train_loader)
         pbar = ProgressBar(target=iterations, width=8)
@@ -249,9 +263,8 @@ class LRFinder:
         if mode == 'iteration':
             self.learner.model.train()
             data, targets = train_iterator.get_batch()
-            loss = self.learner.train_batch(data, targets)
-            accuracy = 100 * self.learner.train_correct / self.learner.train_processed
-            self.learner.update_training_history(loss, accuracy)
+            loss = self.learner.train_batch((data, targets))
+            self.learner.update_training_history(loss)
         elif mode == 'epoch':
             self.learner.train_epoch()
     
@@ -262,8 +275,8 @@ class LRFinder:
             return self.learner.train_losses[-1]
         elif self.metric == 'accuracy':
             if validation:
-                return self.learner.val_accuracies[-1] / 100
-            return self.learner.train_accuracies[-1] / 100
+                return self.learner.val_metrics[0][-1] / 100
+            return self.learner.train_metrics[0][-1] / 100
     
     def _display_metric_value(self, value):
         if self.metric == 'accuracy':
