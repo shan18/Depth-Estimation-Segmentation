@@ -12,7 +12,7 @@ The model architecutre can be seen below
 
 ![architecture](../images/architecture.jpg)
 
-Each of the encoder and decoder blocks are based on a ResNet block. The detailed diagram explaining the flow of each block can be seen below
+The model has `10,343,490` parameters. Each of the encoder and decoder blocks are based on a ResNet block. The detailed diagram explaining the flow of each block can be seen below
 
 ![blocks](../images/blocks.jpg)
 

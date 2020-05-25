@@ -15,4 +15,6 @@ In this project, I will describe my approach and present a Fully-Convolutional N
 - [Deciding Loss Function](docs/deciding_loss_function.md)
   - [Mask Prediction](docs/deciding_loss_function.md#mask-prediction)
   - [Depth and Segmentation Prediction](docs/deciding_loss_function.md#depth-and-segmentation-prediction)
-- [Training Model](#)
+- [Training](docs/training.md)
+  - [RMSE + (BCE & Dice)](<docs/training.md#rmse-+-(bce-&-dice)>)
+  - [SSIM + Dice](docs/training.md#ssim-+-dice)
