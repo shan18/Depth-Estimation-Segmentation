@@ -11,7 +11,7 @@ In Depth Estimation, the machine has to extract the depth information of the for
 In this project, I will describe my approach and present a Fully-Convolutional Neural Network Model which takes in a background and a background-foreground image and outputs the segmentation and depth mapping of the foreground object. The rest of the contents in the document are structrued as follows
 
 - [Model Architecture](docs/architecture.md)
-- [Dataset](ocs/dataset.md)
+- [Dataset](docs/dataset.md)
 - [Deciding Loss Function](docs/deciding_loss_function.md)
   - [Mask Prediction](docs/deciding_loss_function.md#mask-prediction)
   - [Depth and Segmentation Prediction](docs/deciding_loss_function.md#depth-and-segmentation-prediction)
