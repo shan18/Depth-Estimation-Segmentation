@@ -16,7 +16,7 @@ Now for the initial attempt, I chose the loss function randomly but for building
 
 #### Predictions
 
-![bce](../images/bce/1.jpeg)
+<img src="../images/bce/1.jpeg" width="450px" />
 
 ### The Structural Similarity Index (SSIM) Loss
 
@@ -25,7 +25,7 @@ Now for the initial attempt, I chose the loss function randomly but for building
 
 #### Predictions
 
-![ssim](../images/ssim/1.jpeg)
+<img src="../images/ssim/1.jpeg" width="450px" />
 
 ### Dice Loss
 
@@ -39,7 +39,7 @@ Dice coefficient is an evaluation metric that can be used to evaluate image reco
 
 #### Predictions
 
-![dice](../images/dice/1.jpeg)
+<img src="../images/dice/1.jpeg" width="450px" />
 
 After training the model with the three loss functions, I decided to use Intersection over Union (IoU) as the evaluation metric and got the following results
 
