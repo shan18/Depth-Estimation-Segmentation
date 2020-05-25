@@ -98,7 +98,7 @@ class ResDecoderBlock(BaseModel):
 class DSResNet(BaseModel):
 
     def __init__(self):
-        super(DSResNetv1, self).__init__()
+        super(DSResNet, self).__init__()
 
         # Encoder Network
         # ===============

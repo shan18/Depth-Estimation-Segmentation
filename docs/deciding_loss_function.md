@@ -14,10 +14,18 @@ Now for the initial attempt, I chose the loss function randomly but for building
 - Since the output images are grayscale, BCE loss seemps appropriate for this task.
 - We use the PyTorch's `nn.BCEWithLogitsLoss` implementation of BCE loss as it applies the sigmoid function to the output automatically.
 
+#### Predictions
+
+![bce](../images/bce/1.jpeg)
+
 ### The Structural Similarity Index (SSIM) Loss
 
 - SSIM loss will look for similarities within pixels; i.e. if the pixels in the two images line up and or have similar pixel density values.
 - **Standardized Values**: SSIM puts everything in a scale of -1 to 1. A score of 1 meant they are very similar and a score of -1 meant they are very different.
+
+#### Predictions
+
+![ssim](../images/ssim/1.jpeg)
 
 ### Dice Loss
 
@@ -28,6 +36,10 @@ Dice loss seems to perform well in image segmentation tasks as it considers not 
 Dice coefficient is an evaluation metric that can be used to evaluate image reconstruction models. This metric considers _how similar_ the objects are as well as _where_ are they placed in the image.
 
 `dice_loss = 1 - dice_coefficient`
+
+#### Predictions
+
+![dice](../images/dice/1.jpeg)
 
 After training the model with the three loss functions, I decided to use Intersection over Union (IoU) as the evaluation metric and got the following results
 
@@ -53,17 +65,35 @@ So now for the problem, I have 4 loss functions to choose from. So instead of ta
 - BCE and Dice are calculated on the mask prediction
 - Total loss = `2 * rmse(depth) + (bce(mask) + 2 * dice(mask))`
 
+#### Predictions
+
+|             Depth Estimation             |            Segmentation Mask            |
+| :--------------------------------------: | :-------------------------------------: |
+| ![depth](../images/rmse_bce_dice/0.jpeg) | ![mask](../images/rmse_bce_dice/1.jpeg) |
+
 ### SSIM + Dice
 
 - SSIM is calculated on the depth prediction
 - Dice is calculated on the mask prediction
 - Total loss = `2 * ssim(depth) + dice(mask)`
 
+#### Predictions
+
+|           Depth Estimation           |          Segmentation Mask          |
+| :----------------------------------: | :---------------------------------: |
+| ![depth](../images/ssim_dice/0.jpeg) | ![mask](../images/ssim_dice/1.jpeg) |
+
 ### RMSE + BCE
 
 - RMSE is calculated on the depth prediction
 - BCE is calculated on the mask prediction
 - Total loss = `2 * rmse(depth) + bce(mask)`
+
+#### Predictions
+
+|          Depth Estimation           |         Segmentation Mask          |
+| :---------------------------------: | :--------------------------------: |
+| ![depth](../images/rmse_bce/0.jpeg) | ![mask](../images/rmse_bce/1.jpeg) |
 
 The code for all these loss functions can be found [here](loss.py). IoU and RMSE were used to evaluate these loss functions
 

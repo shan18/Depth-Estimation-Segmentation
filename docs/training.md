@@ -60,10 +60,6 @@ The code for the experiment can be found in the Google Colab link mentioned abov
 
 ### Predictions
 
-|         Depth Map         |    Segmentation Mask     |
-| :-----------------------: | :----------------------: |
-| ![rmse](../images/1.jpeg) | ![iou](../images/2.jpeg) |
-
 ## LR Range Test
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ePomqBOAgn6vZCoM8GqFH4mPBEyOU_xA?usp=sharing)
