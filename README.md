@@ -12,8 +12,10 @@ In this project, I will describe my approach and present a Fully-Convolutional N
 
 - [Model Architecture](#model-architecture)
 - [Dataset](#dataset)
-- [Approach In Building the Model](#approach-in-building-the-model)
-  - [Mask Prediction](#mask-prediction)
+- [Deciding Loss Function](docs/deciding_loss_functions.md)
+  - [Mask Prediction](docs/deciding_loss_functions.md#mask-prediction)
+  - [Depth and Segmentation Prediction](docs/deciding_loss_functions.md#depth-and-segmentation-prediction)
+- [Training Model](#)
 
 ## Model Architecture
 
@@ -49,11 +51,3 @@ The dataset used for this model was taken from [here](https://www.kaggle.com/sha
 ### Data Loading
 
 - The dataset is huge, so it is not possible to load the entire dataset into memory at once. So only the images names are indexed and they are fetched on need basis. The code for data loading can be found [here](tensornet/data/datasets/modest_museum.py)
-
-## Approach In Building the Model
-
-### Mask Prediction
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJTCyUxPvlBHsZRK9EZgwaBrBi19Yirj?usp=sharing)
-
-The first step in building a model was to try out predicting just the masks. The masks had only two values, 0 or 255 so I figured a relatively small model should give great results. So I tried a model with mere `59,745` parameters
