@@ -4,7 +4,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJTCyUxPvlBHsZRK9EZgwaBrBi19Yirj?usp=sharing)
 
-The first step in building a model was to try out predicting just the masks. The masks had only two values, 0 or 255 so I figured a relatively small model should give great results. So I tried a model with a mere `59,745` parameters and a randomly chosen `BCEWithLogitsLoss` loss function and results were great. Even after the first epoch itself, the model was able to mask the foreground objects from the input images correctly.
+The first step in building a model was to try out predicting just the masks. The masks had only two values, 0 or 255 so I figured a relatively small model should give great results. So I tried a model with a mere `59,745` parameters and a randomly chosen `BCEWithLogitsLoss` loss function and results were great. Even after the first epoch itself, the model was able to mask the foreground objects from the input images correctly. The code for the model architecture can be found [here](tensornet/model/masknet.py) and the model summary can found in the colab link given above.
 
 Now for the initial attempt, I chose the loss function randomly but for building a proper model I need to know which is the best loss function for this task. After reading a lot of research papers and online blogs, I shortlisted three loss functions for testing
 

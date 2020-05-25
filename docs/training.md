@@ -11,11 +11,13 @@ Each experiment described below had the following common traits
 - Auto model checkpointing which saved the model weights after every epoch.
 - Each model was trained in small sets of epochs, this was done to ensure that the model training does not suffer from sudden disconnection from Google Colab.
 
+The code used for training the model can be found [here](tensornet/engine/learner.py). The `Learner` class present in this file was inherited by the file [here](learner.py) to adapt for the changes in the depth-segmentation model.
+
 ## RMSE + (BCE & Dice)
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c_ZnY4V3MJwe8re6PoYlrqnMCSEsMWFI?usp=sharing)
 
-This experiment had the following parameters and hyperparameters:
+This experiment had the following features:
 
 - Data Augmentation
   - Hue Saturation Value
@@ -39,7 +41,7 @@ The code for the experiment can be found in the Google Colab link mentioned abov
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1QmTXVlEM4zjIQ4_sxjsTVVVzPkkdErPs?usp=sharing)
 
-This experiment had the following parameters and hyperparameters:
+This experiment had the following features:
 
 - Data Augmentation
   - Hue Saturation Value
@@ -55,5 +57,42 @@ The code for the experiment can be found in the Google Colab link mentioned abov
 |                     RMSE                     |                    IoU                     |
 | :------------------------------------------: | :----------------------------------------: |
 | ![rmse](../images/ssim_dice/rmse_change.png) | ![iou](../images/ssim_dice/iou_change.png) |
+
+### Predictions
+
+## LR Range Test
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ePomqBOAgn6vZCoM8GqFH4mPBEyOU_xA?usp=sharing)
+
+Neither of the experiments above gave very good results, so I thought of performing the LR Range Test in order to find the best initial learning rate for the model and then train the model again. The LR Range test was perfomed 5 times and I got the following results
+
+| Start LR | End LR | Iterations |  Loss  | Learning Rate |
+| :------: | :----: | :--------: | :----: | :-----------: |
+|   1e-7   |   5    |    400     | 0.3917 |    0.2805     |
+|   1e-5   |   1    |    400     | 0.2976 |    0.1090     |
+|   1e-4   |   10   |    200     | 0.3653 |    0.4467     |
+|   1e-5   |   2    |    100     | 0.8588 |    0.2511     |
+|   1e-7   |   10   |    400     | 0.3179 |    0.2884     |
+
+The least loss was obtained when learning rate was ~ `0.1`. I choose the initial learning rate 0.1 for my next experiment. The code for the experiment can be found in the Google Colab link mentioned above as well as [here](../trial_notebooks/LR_Range_Test_DSResNet.ipynb).
+
+## RMSE + (BCE & Dice) with New LR and No Augmentation
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1UkpQNVg1Ug00r9_hmWGWpZiFSsMeNziG?usp=sharing)
+
+This experiment had the following features:
+
+- Initial Learning Rate: 0.1
+- Image resolution change during training
+  - First 3 epochs: 96x96
+  - Epoch 4-6: 160x160
+
+The code for the experiment can be found in the Google Colab link mentioned above as well as [here](../Depth_Estimation_Segmentation_ResNet.ipynb).
+
+### Results
+
+|                  RMSE                  |                 IoU                  |
+| :------------------------------------: | :----------------------------------: |
+| ![rmse](../images/des/rmse_change.png) | ![iou](../images/des/iou_change.png) |
 
 ### Predictions
