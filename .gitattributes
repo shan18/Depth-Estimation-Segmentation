@@ -1,0 +1,2 @@
+# Re-classify `.ipynb` files as Python
+*.ipynb linguist-language=Python
