@@ -37,6 +37,8 @@ The code for the experiment can be found in the Google Colab link mentioned abov
 
 ### Predictions
 
+![rmse_bce_dice](../images/rmse_bce_dice/prediction.png)
+
 ## SSIM + Dice
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1QmTXVlEM4zjIQ4_sxjsTVVVzPkkdErPs?usp=sharing)
@@ -59,6 +61,8 @@ The code for the experiment can be found in the Google Colab link mentioned abov
 | ![rmse](../images/ssim_dice/rmse_change.png) | ![iou](../images/ssim_dice/iou_change.png) |
 
 ### Predictions
+
+![ssim_dice](../images/ssim_dice/prediction.png)
 
 ## LR Range Test
 
@@ -83,9 +87,11 @@ The least loss was obtained when learning rate was ~ `0.1`. I choose the initial
 This experiment had the following features:
 
 - Initial Learning Rate: 0.1
+- Learning Rate is manually reduced by 10 after 3 epochs.
 - Image resolution change during training
   - First 3 epochs: 96x96
   - Epoch 4-6: 160x160
+- This models reaches an IoU for 0.92 and RMSE of 0.014 which makes it the best of the models tested above.
 
 The code for the experiment can be found in the Google Colab link mentioned above as well as [here](../Depth_Estimation_Segmentation_ResNet.ipynb).
 
@@ -96,3 +102,7 @@ The code for the experiment can be found in the Google Colab link mentioned abov
 | ![rmse](../images/des/rmse_change.png) | ![iou](../images/des/iou_change.png) |
 
 ### Predictions
+
+![des](../images/des/prediction.png)
+
+So from the predictions, we can say that the **RMSE + (BCE & Dice)** Loss without any augmentation and a proper initial LR seems to be the best loss function suitable for this task.
