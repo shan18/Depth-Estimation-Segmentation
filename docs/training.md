@@ -11,7 +11,7 @@ Each experiment described below had the following common traits
 - Auto model checkpointing which saved the model weights after every epoch.
 - Each model was trained in small sets of epochs, this was done to ensure that the model training does not suffer from sudden disconnection from Google Colab.
 
-The code used for training the model can be found [here](tensornet/engine/learner.py). The `Learner` class present in this file was inherited by the file [here](learner.py) to adapt for the changes in the depth-segmentation model.
+The code used for training the model can be found [here](../tensornet/engine/learner.py). The `Learner` class present in this file was inherited by the file [here](../learner.py) to adapt for the changes in the depth-segmentation model.
 
 ## RMSE + (BCE & Dice)
 

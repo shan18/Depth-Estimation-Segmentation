@@ -2,6 +2,26 @@
 
 The dataset used for this model was taken from [here](https://www.kaggle.com/shanwizard/modest-museum-dataset). The dataset contains 400,000 images of backgrounds, background-foregrounds and their corresponding masks and depth maps each. For more info on the dataset, please go to this [link](https://github.com/shan18/MODEST-Museum-Dataset).
 
+## Preview
+
+The dataset contains four types of images
+
+### Background
+
+![bg](../images/dataset/bg_sample.png)
+
+### Background-Foreground
+
+![bg_fg](../images/dataset/bg_fg_sample.png)
+
+### Background-Foreground Mask
+
+![bg_fg_mask](../images/dataset/bg_fg_mask_sample.png)
+
+### Background-Foreground Depth Map
+
+![bg_fg_depth_map](../images/dataset/bg_fg_depth_map_sample.png)
+
 ## Preprocessing
 
 - The input images (background and background-foreground) were normalized according to the values given on the dataset page.

@@ -4,7 +4,44 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJTCyUxPvlBHsZRK9EZgwaBrBi19Yirj?usp=sharing)
 
-The first step in building a model was to try out predicting just the masks. The masks had only two values, 0 or 255 so I figured a relatively small model should give great results. So I tried a model with a mere `59,745` parameters and a randomly chosen `BCEWithLogitsLoss` loss function and results were great. Even after the first epoch itself, the model was able to mask the foreground objects from the input images correctly. The code for the model architecture can be found [here](tensornet/model/masknet.py) and the model summary can found in the colab link given above.
+The first step in building a model was to try out predicting just the masks. The masks had only two values, 0 or 255 so I figured a relatively small model should give great results. So I tried a model with a mere `59,745` parameters and a randomly chosen `BCEWithLogitsLoss` loss function and results were great. Even after the first epoch itself, the model was able to mask the foreground objects from the input images correctly. The code for the model architecture can be found [here](../tensornet/model/masknet.py) and the model summary can found in the colab link given above.
+
+### Model Summary
+
+ ```
+ ----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1         [-1, 32, 224, 224]             896
+              ReLU-2         [-1, 32, 224, 224]               0
+       BatchNorm2d-3         [-1, 32, 224, 224]              64
+           Dropout-4         [-1, 32, 224, 224]               0
+            Conv2d-5         [-1, 32, 224, 224]             896
+              ReLU-6         [-1, 32, 224, 224]               0
+       BatchNorm2d-7         [-1, 32, 224, 224]              64
+           Dropout-8         [-1, 32, 224, 224]               0
+            Conv2d-9         [-1, 32, 224, 224]           2,080
+           Conv2d-10         [-1, 64, 224, 224]          18,496
+             ReLU-11         [-1, 64, 224, 224]               0
+      BatchNorm2d-12         [-1, 64, 224, 224]             128
+          Dropout-13         [-1, 64, 224, 224]               0
+           Conv2d-14         [-1, 64, 224, 224]          36,928
+             ReLU-15         [-1, 64, 224, 224]               0
+      BatchNorm2d-16         [-1, 64, 224, 224]             128
+          Dropout-17         [-1, 64, 224, 224]               0
+           Conv2d-18          [-1, 1, 224, 224]              65
+          MaskNet-19          [-1, 1, 224, 224]               0
+================================================================
+Total params: 59,745
+Trainable params: 59,745
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 86436.00
+Forward/backward pass size (MB): 307.02
+Params size (MB): 0.23
+Estimated Total Size (MB): 86743.24
+----------------------------------------------------------------
+ ```
 
 Now for the initial attempt, I chose the loss function randomly but for building a proper model I need to know which is the best loss function for this task. After reading a lot of research papers and online blogs, I shortlisted three loss functions for testing
 
@@ -95,7 +132,7 @@ So now for the problem, I have 4 loss functions to choose from. So instead of ta
 | :---------------------------------: | :--------------------------------: |
 | ![depth](../images/rmse_bce/0.jpeg) | ![mask](../images/rmse_bce/1.jpeg) |
 
-The code for all these loss functions can be found [here](loss.py). IoU and RMSE were used to evaluate these loss functions
+The code for all these loss functions can be found [here](../loss.py). IoU and RMSE were used to evaluate these loss functions
 
 |             Validation Loss              |                  IoU                   |                   RMSE                   |
 | :--------------------------------------: | :------------------------------------: | :--------------------------------------: |
