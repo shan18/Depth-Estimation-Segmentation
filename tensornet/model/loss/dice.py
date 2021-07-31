@@ -16,7 +16,7 @@ class DiceLoss(nn.Module):
         """
         super(DiceLoss, self).__init__()
 
-        self.smooth = 1
+        self.smooth = smooth
 
     def forward(self, input, target):
         """Calculate Dice Loss.
